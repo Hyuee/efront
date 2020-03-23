@@ -271,3 +271,31 @@ M       git/git.basic.md
 
 ## 推送到新分支
 
+```shell
+# 推送新分支到远程仓库
+$ git push origin dev
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'dev' on GitHub by visiting:
+remote:      https://github.com/Hyuee/efront/pull/new/dev
+remote:
+To https://github.com/Hyuee/efront.git
+ * [new branch]      dev -> dev
+```
+
+## 删除当前分支的文件
+
+```shell
+$ git rm 'test.md'
+rm 'test.md'
+```
+
+## 提交修改到当前分支
+
+```shell
+$ git commit -m "remove test.md"
+[dev 54e49fa] remove test.md
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 test.md
+```
+
