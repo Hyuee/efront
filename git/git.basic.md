@@ -80,5 +80,194 @@ $ git status -s
 ## 将文件添加到暂存区
 
 ```shell
+# 暂存已修改的文件
+$ git add git/
+```
+
+![image-20200323204036513](git.basic.assets/image-20200323204036513.png)
+
+
+
+## 将暂存区文件提交到本地仓库
+
+```shell
+# -m + 提交的信息
+$ git commit -m "add git.basic.md"
+# 跳过暂存区（提交所有修改的文件），直接提交
+$ git commit -a -m 'add git.basic.md'
+```
+
+![image-20200323204746430](git.basic.assets/image-20200323204746430.png)
+
+
+
+## 推送到远程仓库
+
+```shell
+$ git push --set-upstream origin master
+```
+
+![image-20200323205341581](git.basic.assets/image-20200323205341581.png)
+
+## 查看历史
+
+```shell
+$ git log
+```
+
+![image-20200323205603788](git.basic.assets/image-20200323205603788.png)
+
+
+
+## 从远程仓抓取数据
+
+```shell
+$ git pull
+
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 691 bytes | 2.00 KiB/s, done.
+From https://github.com/Hyuee/efront
+   fa8925c..aad3f5e  master     -> origin/master
+Updating fa8925c..aad3f5e
+Fast-forward
+ test.md | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 test.md
+
+# 查看文件列表
+$ ls -l
+total 2
+drwxr-xr-x 1 14420 197609  0  3月 23 21:06 git/
+-rw-r--r-- 1 14420 197609 30  3月 23 19:54 README.md
+-rw-r--r-- 1 14420 197609 18  3月 23 21:02 test.md
 
 ```
+
+
+
+## 修改文件
+
+```shell
+$ vim test.md
+
+diff --git a/test.md b/test.md
+index 307215a..1f4f845 100644
+--- a/test.md
++++ b/test.md
+@@ -1 +1,3 @@
+ test pull command
++
++git diff HEAD
+```
+
+## 加入暂存区
+
+```shell
+14420@DESKTOP-UOORP2M MINGW64 /d/工作/实习/task/day200323/efront (master)
+$ git add -A
+
+14420@DESKTOP-UOORP2M MINGW64 /d/工作/实习/task/day200323/efront (master)
+$ git status -s
+A  git/git.basic.assets/image-20200323204036513.png
+A  git/git.basic.assets/image-20200323204746430.png
+A  git/git.basic.assets/image-20200323205341581.png
+A  git/git.basic.assets/image-20200323205603788.png
+M  git/git.basic.md
+M  test.md
+```
+
+## 查看暂存区与本地库之间的差异
+
+```shell
+$ git diff --staged
+
+diff --git a/git/git.basic.assets/image-20200323204036513.png b/git/git.basic.assets/image-20200323204036513.png
+new file mode 100644
+index 0000000..9220d16
+Binary files /dev/null and b/git/git.basic.assets/image-20200323204036513.png differ
+diff --git a/git/git.basic.assets/image-20200323204746430.png b/git/git.basic.assets/image-20200323204746430.png
+new file mode 100644
+index 0000000..c29b64b
+Binary files /dev/null and b/git/git.basic.assets/image-20200323204746430.png differ
+diff --git a/git/git.basic.assets/image-20200323205341581.png b/git/git.basic.assets/image-20200323205341581.png
+new file mode 100644
+index 0000000..a2015e9
+Binary files /dev/null and b/git/git.basic.assets/image-20200323205341581.png differ
+diff --git a/git/git.basic.assets/image-20200323205603788.png b/git/git.basic.assets/image-20200323205603788.png
+new file mode 100644
+index 0000000..4218a2b
+Binary files /dev/null and b/git/git.basic.assets/image-20200323205603788.png differ
+diff --git a/git/git.basic.md b/git/git.basic.md
+index c62f6fb..a1f1183 100644
+--- a/git/git.basic.md
++++ b/git/git.basic.md
+```
+
+## 重置暂存区中的文件
+
+```shell
+14420@DESKTOP-UOORP2M MINGW64 /d/工作/实习/task/day200323/efront (master)
+# 重置 git目录下所有文件和test.md 
+$ git reset git/ test.md
+Unstaged changes after reset:
+M       git/git.basic.md
+M       test.md
+
+14420@DESKTOP-UOORP2M MINGW64 /d/工作/实习/task/day200323/efront (master)
+$ git status -s
+M git/git.basic.md
+M test.md
+?? git/git.basic.assets/image-20200323204036513.png
+?? git/git.basic.assets/image-20200323204746430.png
+?? git/git.basic.assets/image-20200323205341581.png
+?? git/git.basic.assets/image-20200323205603788.png
+```
+
+## 将工作区还原到修改之前
+
+```shell
+# 还原之前
+$ git status -s
+ M git/git.basic.md
+ M test.md
+?? git/git.basic.assets/image-20200323204036513.png
+?? git/git.basic.assets/image-20200323204746430.png
+?? git/git.basic.assets/image-20200323205341581.png
+?? git/git.basic.assets/image-20200323205603788.png
+
+14420@DESKTOP-UOORP2M MINGW64 /d/工作/实习/task/day200323/efront (master)
+# 还原 test.md文件
+$ git checkout -- test.md
+
+14420@DESKTOP-UOORP2M MINGW64 /d/工作/实习/task/day200323/efront (master)
+# 还原之后
+$ git status -s
+ M git/git.basic.md
+?? git/git.basic.assets/image-20200323204036513.png
+?? git/git.basic.assets/image-20200323204746430.png
+?? git/git.basic.assets/image-20200323205341581.png
+?? git/git.basic.assets/image-20200323205603788.png
+
+```
+
+## 创建新分支并切换到新分支
+
+```shell
+14420@DESKTOP-UOORP2M MINGW64 /d/工作/实习/task/day200323/efront (master)
+# 创建分支
+$ git branch dev
+
+14420@DESKTOP-UOORP2M MINGW64 /d/工作/实习/task/day200323/efront (master)
+# 切换到分支
+$ git checkout dev
+Switched to branch 'dev'
+M       git/git.basic.md
+```
+
+
+
+## 推送到新分支
+
