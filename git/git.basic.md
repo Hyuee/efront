@@ -104,6 +104,7 @@ $ git commit -a -m 'add git.basic.md'
 ## 推送到远程仓库
 
 ```shell
+# 第一次提交需要加上 --set-upstream
 $ git push --set-upstream origin master
 ```
 
