@@ -395,3 +395,107 @@ Date:   Tue Mar 24 09:36:19 2020 +0800
 
 ## 解决冲突
 
+> 模拟冲突情况
+
+```shell
+# master中存在test.txt文件
+$ ls -l
+
+total 17
+drwxr-xr-x 1 14420 197609     0  3月 24 08:37 git.basic.assets/
+-rw-r--r-- 1 14420 197609 10077  3月 24 10:41 git.basic.md
+-rw-r--r-- 1 14420 197609   115  3月 24 13:10 test.txt
+
+# 创建并切换到新分支'feature1'
+$ git checkout -b feature1
+Switched to a new branch 'feature1'
+
+# 在新分支中修改test.txt文件
+$ vim test.txt
+
+# 查看修改内容，+标识新增，可以看出‘worldffff’被替换成‘heyue’
+$ git diff -b
+
+diff --git a/git/test.txt b/git/test.txt
+index dddbc0e..19748a9 100644
+--- a/git/test.txt
++++ b/git/test.txt
+@@ -2,6 +2,6 @@
+ public class Animal
+ {
+     public static void main(String[] args){
+-       System.out.println("Hello worldffff");
++       System.out.println("Hello heyue");
+     }
+ }
+
+# 将修改提交到feature1分支
+$ git commit -am 'update test.txt'
+
+[feature1 5a84088] update test.txt
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+# 再切换到主分支
+$ git checkout master
+
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 4 commits.
+  (use "git push" to publish your local commits)
+  
+# 修改test.txt文件
+$ vim test.txt
+
+# 查看修改内容，可见增加了一行注释以及将“worldffff”替换成了“world”
+$ git diff
+diff --git a/git/test.txt b/git/test.txt
+index dddbc0e..0439601 100644
+--- a/git/test.txt
++++ b/git/test.txt
+@@ -2,6 +2,7 @@
+ public class Animal
+ {
+     public static void main(String[] args){
+-       System.out.println("Hello worldffff");
++       // Say Hello
++       System.out.println("Hello world");
+     }
+}
+
+# 将修改提交到主分支
+$ git commit -am 'add comments'
+[master 42b0be2] add comments
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+# 最后合并，合并时出现了“CONFLICT (content): Merge conflict in git/test.txt”
+# 并且“Automatic merge failed”，自动合并失败，这时需要手动合并。
+$ git merge feature1
+Auto-merging git/test.txt
+CONFLICT (content): Merge conflict in git/test.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+# 打开文件进行手动合并冲突
+$ vim test.txt
+# 最终合并为
+public class Animal
+{
+    public static void main(String[] args){
+        // Say Hello
+        System.out.println("Hello world");
+        // Solve Conflicts
+        System.out.println("Hello heyue");
+    }
+}
+
+# 提交修改
+$ git commit -am "Solve Conflicts"
+[master 9914311] Solve Conflicts
+
+# 冲突已解决
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 7 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+```
+
