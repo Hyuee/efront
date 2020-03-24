@@ -344,3 +344,49 @@ To https://github.com/Hyuee/efront.git
  - [deleted]         dev
 ```
 
+## 回退
+
+```shell
+# 为了看到效果，先增加一个文件，并提交
+$ vim testRevert1.md
+# 加入暂存区
+$ git add testRevert1.md
+# 提交
+$ git commit -m "add testRevert1.md"
+[master 007bc01] add testRevert1.md
+ 1 file changed, 3 insertions(+)
+ create mode 100644 git/testRevert1.md
+
+# 回退一次
+$ git revert HEAD
+Removing git/testRevert1.md
+[master 33f4b8d] Revert "add testRevert1.md"
+ 1 file changed, 3 deletions(-)
+ delete mode 100644 git/testRevert1.md
+ 
+# 查看历史（简洁信息，只显示最新的2条）
+$ git log --stat -2
+
+commit 33f4b8d686fd4ecf1a1ff3fb5a1f4e26e69aaaf2 (HEAD -> master, origin/master, origin/HEAD)
+Author: Hyuee <18623212546@139.com>
+Date:   Tue Mar 24 09:37:17 2020 +0800
+
+    Revert "add testRevert1.md"
+
+    This reverts commit 007bc01991009e498db4719ec15f6c6c324f2601.
+
+ git/testRevert1.md | 3 ---
+ 1 file changed, 3 deletions(-)
+
+commit 007bc01991009e498db4719ec15f6c6c324f2601
+Author: Hyuee <18623212546@139.com>
+Date:   Tue Mar 24 09:36:19 2020 +0800
+
+    add testRevert1.md
+
+ git/testRevert1.md | 3 +++
+ 1 file changed, 3 insertions(+)
+ 
+
+```
+
