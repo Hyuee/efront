@@ -359,6 +359,9 @@ $ git commit -m "add testRevert1.md"
 
 # 回退一次
 $ git revert HEAD
+# 回退n次
+$ git revert HEAD~n
+
 Removing git/testRevert1.md
 [master 33f4b8d] Revert "add testRevert1.md"
  1 file changed, 3 deletions(-)
