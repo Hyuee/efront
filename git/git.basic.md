@@ -300,3 +300,47 @@ $ git commit -m "remove test.md"
  delete mode 100644 test.md
 ```
 
+## 切换到master分支
+
+```shell
+$ git checkout master
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+```
+
+## 合并dev分支
+
+```shell
+$ git merge dev
+
+Updating aad3f5e..3c497da
+Fast-forward
+ git/git.basic.assets/image-20200323204036513.png | Bin 0 -> 34769 bytes
+ git/git.basic.assets/image-20200323204746430.png | Bin 0 -> 29272 bytes
+ git/git.basic.assets/image-20200323205341581.png | Bin 0 -> 23847 bytes
+ git/git.basic.assets/image-20200323205603788.png | Bin 0 -> 11025 bytes
+ git/git.basic.md                                 | 218 +++++++++++++++++++++++
+ test.md                                          |   1 -
+ 6 files changed, 218 insertions(+), 1 deletion(-)
+ create mode 100644 git/git.basic.assets/image-20200323204036513.png
+ create mode 100644 git/git.basic.assets/image-20200323204746430.png
+ create mode 100644 git/git.basic.assets/image-20200323205341581.png
+ create mode 100644 git/git.basic.assets/image-20200323205603788.png
+ delete mode 100644 test.md
+```
+
+## 删除分支
+
+```shell
+# 删除本地分支（并没有删除远程dev分支）
+$ git branch -d dev
+Deleted branch dev (was 3c497da).
+
+# 将删除操作push到远程仓
+$ git push origin --delete dev
+
+To https://github.com/Hyuee/efront.git
+ - [deleted]         dev
+```
+
