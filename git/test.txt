@@ -4,5 +4,7 @@ public class Animal
     public static void main(String[] args){
     	// Say Hello
 	System.out.println("Hello world");
+	// Solve Conflicts
+	System.out.println("Hello heyue");
     }
 }
